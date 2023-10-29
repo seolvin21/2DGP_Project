@@ -4,11 +4,10 @@ import game_world
 from background import Background
 from mario import Mario
 from game_start import Game_Start
-
+from shared import Shared
 
 def handle_events():
     global running
-    global isstart
 
     events = get_events()
     for event in events:
@@ -17,7 +16,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
         elif event.type == SDL_MOUSEBUTTONDOWN:
-            isstart = False
+            Shared.isstart = False
         else:
             mario.handle_event(event)
 
@@ -38,10 +37,7 @@ def reset_world():
 
 def update_world():
     game_world.update()
-    if isstart:
-        game_start = Game_Start()
-        game_world.add_object(game_start, 2)
-    else:
+    if not Shared.isstart:
         print("Game is running")
 
 def render_world():
