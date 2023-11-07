@@ -1,19 +1,26 @@
-# layer 0: Background object
-# layer 1: Foreground object
-objects = [[],[],[]]
+objects = [[] for _ in range(6)]
+# layer 0~2: background
 
-def add_object(o, depth=0):
+
+def add_object(o, depth = 0):
     objects[depth].append(o)
+
+
+def add_objects(ol, depth = 0):
+    objects[depth] += ol
+
 
 def update():
     for layer in objects:
         for o in layer:
             o.update()
 
+
 def render():
     for layer in objects:
         for o in layer:
             o.draw()
+
 
 def remove_object(o):
     for layer in objects:
@@ -21,4 +28,8 @@ def remove_object(o):
             layer.remove(o)
             return
     raise ValueError('cannot remove nonexistent object')
-    objects.remove(o)
+
+
+def clear():
+    for layer in objects:
+        layer.clear()
