@@ -45,7 +45,7 @@ class Boom:
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
-        if self.frame == 8:
+        if self.frame > 7:
             game_world.remove_object(self)
 
     def draw(self):
