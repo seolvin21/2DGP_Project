@@ -4,6 +4,7 @@ from pico2d import *
 import game_framework
 
 import game_world
+from target import Target
 from background import Background
 from participant import Player
 from pigeon import Pigeon
@@ -19,11 +20,13 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         else:
+            targeting.handle_event(event)
             player.handle_event(event)
 
 def init():
     global bg
     global player
+    global targeting
 
     running = True
 
@@ -37,6 +40,8 @@ def init():
     pigeons = [Pigeon() for _ in range(5)]
     game_world.add_objects(pigeons, 1)
 
+    targeting = Target()
+    game_world.add_object(targeting, 2)
 
 
 def finish():
