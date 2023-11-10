@@ -1,7 +1,7 @@
 from pico2d import *
 
 import game_world
-from mario import Mario
+from participant import Player
 from shared import Shared
 
 
