@@ -6,6 +6,7 @@ import game_framework
 import game_world
 from background import Background
 from participant import Player
+from pigeon import Pigeon
 
 
 # boy = None
@@ -31,6 +32,11 @@ def init():
 
     player = Player()
     game_world.add_object(player, 1)
+
+    global pigeons
+    pigeons = Pigeon()
+    game_world.add_object(pigeons, 1)
+
 
 
 def finish():
