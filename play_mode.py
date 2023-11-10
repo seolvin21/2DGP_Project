@@ -4,7 +4,7 @@ from pico2d import *
 import game_framework
 
 import game_world
-from target import Target
+from target import Target, Boom
 from background import Background
 from participant import Player
 from pigeon import Pigeon
@@ -22,6 +22,10 @@ def handle_events():
         else:
             targeting.handle_event(event)
             player.handle_event(event)
+
+            if event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
+                boom = Boom(targeting)
+                game_world.add_object(boom, 1)
 
 def init():
     global bg
