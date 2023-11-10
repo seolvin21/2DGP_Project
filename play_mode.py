@@ -10,7 +10,6 @@ from participant import Player
 from pigeon import Pigeon
 
 
-# boy = None
 
 def handle_events():
     events = get_events()
@@ -24,8 +23,9 @@ def handle_events():
             player.handle_event(event)
 
             if event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
-                boom = Boom(targeting)
-                game_world.add_object(boom, 1)
+                if targeting.x >= player.x - 200 and targeting.x <= player.x + 200:
+                    boom = Boom(targeting)
+                    game_world.add_object(boom, 1)
 
 def init():
     global bg
@@ -41,8 +41,6 @@ def init():
     game_world.add_object(player, 1)
 
     global pigeons
-    pigeons = [Pigeon() for _ in range(5)]
-    game_world.add_objects(pigeons, 1)
 
     targeting = Target()
     game_world.add_object(targeting, 2)
@@ -52,8 +50,26 @@ def finish():
     game_world.clear()
     pass
 
+# Define the pigeon spawn interval in seconds
+PIGEON_SPAWN_INTERVAL = 2.0
+# Initialize the pigeon spawn timer
+pigeon_spawn_timer = 0.0
 
 def update():
+    global pigeon_spawn_timer
+
+    # Update the timer
+    pigeon_spawn_timer += game_framework.frame_time
+
+    # Check if it's time to spawn a new pigeon
+    if pigeon_spawn_timer >= PIGEON_SPAWN_INTERVAL:
+        # Spawn a new pigeon
+        pigeon = Pigeon()
+        game_world.add_object(pigeon, 1)
+
+        # Reset the timer
+        pigeon_spawn_timer = 0.0
+
     game_world.update()
     game_world.handle_collisions()
 

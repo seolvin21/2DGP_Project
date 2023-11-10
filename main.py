@@ -1,8 +1,9 @@
 from pico2d import *
 import game_framework
 
-import play_mode as start_mode
+import start_mode as starting_mode
 
 open_canvas()
-game_framework.run(start_mode)
+hide_cursor()
+game_framework.run(starting_mode)
 close_canvas()

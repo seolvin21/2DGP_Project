@@ -1,4 +1,5 @@
 import random
+import math
 
 from pico2d import *
 import game_world
@@ -18,29 +19,35 @@ FRAMES_PER_ACTION = 3
 
 class Pigeon:
     image = None
+
     def __init__(self):
-        self.x, self.y = random.randint(20,780), random.randint(100,550)
+        self.x, self.y = random.choice([10,730]), random.randint(100,550)
         Pigeon.image = load_image('pigeon_spritesheet.png')
         self.frame = 0
-        self.dir = 1
-        self.wid, self.hgt = 80, 100
+        if self.x == 10:
+            self.dir = 1
+        elif self.x == 730:
+            self.dir = -1
         self.action = 0
+        self.wid, self.hgt = 80, 100
+        min_hgt = 50  # 최소 폭
+        max_hgt = 100  # 최대 폭
+
+        self.hgt_size = random.randint(min_hgt, max_hgt)
+        self.wid_size = self.hgt_size - 20
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
         self.x += RUN_SPEED_PPS * self.dir * game_framework.frame_time
-        if self.x > 750:
-            self.dir = -1
-        elif self.x < 10:
-            self.dir = 1
-        self.x = clamp(10, self.x, 800)
+        if self.x > 750 or self.x < 10:
+            game_world.remove_object(self)
 
     def draw(self):
         if self.dir > 0:
             self.image.clip_composite_draw(int(self.frame)*self.wid, self.action*self.hgt,
-                                           self.wid, self.hgt,0, 'h',  self.x, self.y, 80, 100)
+                                           self.wid, self.hgt,0, 'h',  self.x, self.y, self.wid_size, self.hgt_size)
         else:
             self.image.clip_draw(int(self.frame) * self.wid, self.action * self.hgt,
-                                 self.wid, self.hgt, self.x, self.y, self.wid, self.hgt)
+                                 self.wid, self.hgt, self.x, self.y, self.wid_size, self.hgt_size)
     def handle_event(self, event):
         pass

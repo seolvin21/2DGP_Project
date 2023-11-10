@@ -137,16 +137,27 @@ class Player:
         self.face_dir = 1
         self.wid = 67
         self.hgt = 110
+        self.time_limit = 10.0
+        self.elapsed_time = 0.0
+        self.remaining_time = self.time_limit
         self.image = load_image('player_spritesheet.png')
         self.image_idle = load_image('player_spritesheet_idle.png')
+        self.font = load_font('NanumSquareEB.ttf', 30)
         self.state_machine = StateMachine(self)
         self.state_machine.start()
 
     def update(self):
         self.state_machine.update()
-
+        # Update the timer
+        self.elapsed_time += game_framework.frame_time
+        self.remaining_time = max(self.time_limit - self.elapsed_time, 0)
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
 
     def draw(self):
         self.state_machine.draw()
+        # Draw the remaining time
+        if self.remaining_time > 0:
+            self.font.draw(400, 580, f'Remaining Time: {self.remaining_time:.2f}', (255, 255, 255))
+        else:
+            self.font.draw(400, 580, 'Time is up!', (255, 255, 255))
