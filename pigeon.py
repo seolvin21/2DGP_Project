@@ -19,7 +19,7 @@ FRAMES_PER_ACTION = 3
 class Pigeon:
     image = None
     def __init__(self):
-        self.x, self.y = 80, 300
+        self.x, self.y = random.randint(20,780), random.randint(300,400)
         Pigeon.image = load_image('pigeon_spritesheet.png')
         self.frame = 0
         self.dir = 1

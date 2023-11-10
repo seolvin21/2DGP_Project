@@ -34,8 +34,8 @@ def init():
     game_world.add_object(player, 1)
 
     global pigeons
-    pigeons = Pigeon()
-    game_world.add_object(pigeons, 1)
+    pigeons = [Pigeon() for _ in range(5)]
+    game_world.add_objects(pigeons, 1)
 
 
 
