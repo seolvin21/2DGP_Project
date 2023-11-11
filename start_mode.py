@@ -5,7 +5,7 @@ import loading_mode
 
 def init():
     global image
-    image = load_image('gamestart.jpg')
+    image = load_image('gamestart.png')
     pass
 
 def finish():

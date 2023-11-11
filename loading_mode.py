@@ -21,7 +21,7 @@ def finish():
 
 def draw():
     clear_canvas()
-    image.draw(400,300)
+    image.draw(400,300, 1010, 385)
     update_canvas()
 
 def update():
