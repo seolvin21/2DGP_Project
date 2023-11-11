@@ -1,6 +1,7 @@
 from pico2d import *
 import game_world
 import game_framework
+import loading_mode
 
 
 def right_down(e):
@@ -151,6 +152,7 @@ class Player:
         # Update the timer
         self.elapsed_time += game_framework.frame_time
         self.remaining_time = max(self.time_limit - self.elapsed_time, 0)
+
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
 
@@ -161,3 +163,4 @@ class Player:
             self.font.draw(400, 580, f'Remaining Time: {self.remaining_time:.2f}', (255, 255, 255))
         else:
             self.font.draw(400, 580, 'Time is up!', (255, 255, 255))
+            game_framework.change_mode(loading_mode)
