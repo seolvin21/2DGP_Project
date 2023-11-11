@@ -40,7 +40,7 @@ def init():
     player = Player()
     game_world.add_object(player, 1)
 
-    global pigeons
+    # global pigeons
 
     targeting = Target()
     game_world.add_object(targeting, 2)
