@@ -17,11 +17,12 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 3
 
+
 class Pigeon:
     image = None
 
     def __init__(self):
-        self.x, self.y = random.choice([10,730]), random.randint(100,550)
+        self.x, self.y = random.choice([10, 730]), random.randint(100, 550)
         Pigeon.image = load_image('pigeon_spritesheet.png')
         self.frame = 0
         if self.x == 10:
@@ -44,8 +45,8 @@ class Pigeon:
 
     def draw(self):
         if self.dir > 0:
-            self.image.clip_composite_draw(int(self.frame)*self.wid, self.action*self.hgt,
-                                           self.wid, self.hgt,0, 'h',  self.x, self.y, self.wid_size, self.hgt_size)
+            self.image.clip_composite_draw(int(self.frame) * self.wid, self.action * self.hgt,
+                                           self.wid, self.hgt, 0, 'h', self.x, self.y, self.wid_size, self.hgt_size)
         else:
             self.image.clip_draw(int(self.frame) * self.wid, self.action * self.hgt,
                                  self.wid, self.hgt, self.x, self.y, self.wid_size, self.hgt_size)
@@ -55,8 +56,8 @@ class Pigeon:
         pass
 
     def get_bb(self):
-        return (self.x - self.wid_size/2, self.y - self.hgt_size/2,
-                self.x + self.wid_size/2, self.y + self.hgt_size/2)
+        return (self.x - self.wid_size / 2, self.y - self.hgt_size / 2,
+                self.x + self.wid_size / 2, self.y + self.hgt_size / 2)
 
     def handle_collision(self, group, other):
         if group == 'player:pigeon':

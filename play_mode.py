@@ -47,9 +47,6 @@ def init():
     game_world.add_object(targeting, 2)
 
     game_world.add_collision_pair('player:pigeon', targeting, None)
-    for pigeon in pigeons:
-        game_world.add_collision_pair('player:pigeon', None, pigeon)
-
 
 
 def finish():
@@ -74,6 +71,7 @@ def update():
         new_pigeon = Pigeon()
         pigeons.append(new_pigeon)
         game_world.add_object(new_pigeon, 1)
+        game_world.add_collision_pair('player:pigeon', None, new_pigeon)
 
         # Reset the timer
         pigeon_spawn_timer = 0.0
