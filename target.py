@@ -8,6 +8,7 @@ class Target:
         self.x, self.y = 0, 0
         self.image = load_image('Target.png')
         self.wid, self.hgt = 50, 50
+        self.targeting_size = 20
         self.font = load_font('NanumSquareEB.ttf', 30)
         self.score = 0
 
@@ -24,10 +25,20 @@ class Target:
 
     def draw(self):
         self.image.draw(self.x, self.y, self.wid, self.hgt)
-        self.font.draw(100, 580, f'SCORE: {self.score:.1f}', (255, 255, 255))
+        self.font.draw(100, 580, f'SCORE: {self.score:.0f}', (255, 255, 255))
+        draw_rectangle(*self.get_bb())
+
+    def get_bb(self):
+        return (self.x - self.targeting_size, self.y - self.targeting_size,
+                self.x + self.targeting_size, self.y + self.targeting_size)
+
     def handle_collision(self, group, other):
         if group == 'player:pigeon':
+            print('collision')
             self.score += 1
+
+
+
 
 # bullet animation speed
 TIME_PER_ACTION = 0.5

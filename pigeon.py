@@ -7,7 +7,7 @@ import game_framework
 
 # Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)
-RUN_SPEED_KMPH = random.randint(20, 90)
+RUN_SPEED_KMPH = random.randint(10, 60)
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -49,5 +49,15 @@ class Pigeon:
         else:
             self.image.clip_draw(int(self.frame) * self.wid, self.action * self.hgt,
                                  self.wid, self.hgt, self.x, self.y, self.wid_size, self.hgt_size)
+        draw_rectangle(*self.get_bb())
+
     def handle_event(self, event):
         pass
+
+    def get_bb(self):
+        return (self.x - self.wid_size/2, self.y - self.hgt_size/2,
+                self.x + self.wid_size/2, self.y + self.hgt_size/2)
+
+    def handle_collision(self, group, other):
+        if group == 'player:pigeon':
+            game_world.remove_object(self)
