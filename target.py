@@ -1,6 +1,8 @@
 from pico2d import *
 import game_framework
 import game_world
+import play_mode
+import server
 
 
 def leftmouse_down(e):
@@ -15,15 +17,16 @@ class Target:
         self.targeting_size = 20
         self.font = load_font('NanumSquareEB.ttf', 30)
         self.bullet_count = 5
-        self.score = 0
+        self.score = server.score
 
     def handle_event(self, event):
-       if event.type == SDL_MOUSEMOTION:
-           self.x, self.y = event.x, 600 - 1 - event.y
-       elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
-            self.fire()
-            print(self.x, self.y)
-       elif event.type == SDL_MOUSEBUTTONUP and event.button == SDL_BUTTON_LEFT:
+        if event.type == SDL_MOUSEMOTION:
+            self.x, self.y = event.x, 600 - 1 - event.y
+        elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
+            if self.x >= play_mode.player.x - 200 and self.x <= play_mode.player.x + 200:
+                self.fire()
+                print(self.x, self.y)
+        elif event.type == SDL_MOUSEBUTTONUP and event.button == SDL_BUTTON_LEFT:
             game_world.remove_collision_object(self)
 
     def fire(self):
@@ -33,13 +36,13 @@ class Target:
             game_world.add_object(bullet, 1)
             game_world.add_collision_pair('player:pigeon', self, None)
 
-
     def update(self):
         pass
 
     def draw(self):
         self.image.draw(self.x, self.y, self.wid, self.hgt)
         self.font.draw(100, 580, f'SCORE: {self.score:.0f}', (255, 255, 255))
+        self.font.draw(100, 550, f'BULLET: {self.bullet_count:.0f}', (255, 255, 255))
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):
@@ -50,8 +53,7 @@ class Target:
         if group == 'player:pigeon':
             print('collision')
             self.score += 1
-
-
+            server.score = self.score
 
 
 # bullet animation speed
@@ -60,6 +62,7 @@ ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
 animation_names = ['skill_bullet_1_']
+
 
 class Boom:
     images = None
@@ -70,7 +73,7 @@ class Boom:
             for name in animation_names:
                 Boom.images[name] = [load_image("./explosion/" + name + "%d" % i + ".png") for i in range(1, 8)]
 
-    def __init__(self, x = 400, y = 300):
+    def __init__(self, x=400, y=300):
         self.load_images()
         self.frame = 0
         self.x, self.y = x, y
