@@ -27,7 +27,7 @@ def draw():
 def update():
     global running
     if get_time() - loading_time >= 2.0:
-        clear_canvas()
+
         game_framework.change_mode(play_mode)
         running = False
 

@@ -3,6 +3,10 @@ import game_framework
 import game_world
 
 
+def leftmouse_down(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].button == SDL_BUTTON_LEFT
+
+
 class Target:
     def __init__(self):
         self.x, self.y = 0, 0
@@ -10,14 +14,24 @@ class Target:
         self.wid, self.hgt = 50, 50
         self.targeting_size = 20
         self.font = load_font('NanumSquareEB.ttf', 30)
+        self.bullet_count = 5
         self.score = 0
 
     def handle_event(self, event):
        if event.type == SDL_MOUSEMOTION:
            self.x, self.y = event.x, 600 - 1 - event.y
        elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
-           print(self.x, self.y)
+            self.fire()
+            print(self.x, self.y)
+       elif event.type == SDL_MOUSEBUTTONUP and event.button == SDL_BUTTON_LEFT:
+            game_world.remove_collision_object(self)
 
+    def fire(self):
+        if self.bullet_count > 0:
+            self.bullet_count -= 1
+            bullet = Boom(self.x, self.y)
+            game_world.add_object(bullet, 1)
+            game_world.add_collision_pair('player:pigeon', self, None)
 
 
     def update(self):
@@ -56,11 +70,10 @@ class Boom:
             for name in animation_names:
                 Boom.images[name] = [load_image("./explosion/" + name + "%d" % i + ".png") for i in range(1, 8)]
 
-    def __init__(self, target):
-        self.target = target
+    def __init__(self, x = 400, y = 300):
         self.load_images()
         self.frame = 0
-        self.x, self.y = self.target.x, self.target.y
+        self.x, self.y = x, y
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION

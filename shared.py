@@ -1,2 +1,2 @@
-class Shared:
-    isstart = True
+score = 0
+stage = 0

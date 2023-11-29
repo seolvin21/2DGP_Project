@@ -22,11 +22,6 @@ def handle_events():
             targeting.handle_event(event)
             player.handle_event(event)
 
-            if event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
-                if targeting.x >= player.x - 200 and targeting.x <= player.x + 200:
-                    boom = Boom(targeting)
-                    game_world.add_object(boom, 1)
-
 def init():
     global bg
     global player
@@ -45,8 +40,6 @@ def init():
 
     targeting = Target()
     game_world.add_object(targeting, 2)
-
-    game_world.add_collision_pair('player:pigeon', targeting, None)
 
 
 def finish():
