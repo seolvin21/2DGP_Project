@@ -1,13 +1,15 @@
-objects = [[] for _ in range(4)]    # 보이는 세계
+objects = [[] for _ in range(4)]  # 보이는 세계
 
 # fill here
 # 충돌의 세계
-collision_pairs = {}    # { 'boy:ball': [[boy], [ball1,ball2,ball3,...]] }
+collision_pairs = {}  # { 'boy:ball': [[boy], [ball1,ball2,ball3,...]] }
 
-def add_object(o, depth = 0):
+
+def add_object(o, depth=0):
     objects[depth].append(o)
 
-def add_objects(ol, depth = 0):
+
+def add_objects(ol, depth=0):
     objects[depth] += ol
 
 
@@ -22,12 +24,13 @@ def render():
         for o in layer:
             o.draw()
 
+
 # fill here
 
-def add_collision_pair(group, a = None, b = None):    # a와 b 사이에 충돌검사가 필요하다는 점을 등록
+def add_collision_pair(group, a=None, b=None):  # a와 b 사이에 충돌검사가 필요하다는 점을 등록
     if group not in collision_pairs:
         print(f'New group {group} added....')
-        collision_pairs[group] = [ [], [] ]
+        collision_pairs[group] = [[], []]
     if a:
         collision_pairs[group][0].append(a)
     if b:
@@ -57,7 +60,6 @@ def remove_object(o):
 def clear():
     for layer in objects:
         layer.clear()
-
 
 
 # fill here

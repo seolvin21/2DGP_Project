@@ -2,6 +2,7 @@ from pico2d import *
 import game_world
 import game_framework
 import loading_mode
+import server
 
 
 def right_down(e):
@@ -147,6 +148,8 @@ class Player:
         self.state_machine = StateMachine(self)
         self.state_machine.start()
 
+        self.stage = server.stage
+
     def update(self):
         self.state_machine.update()
         # Update the timer
@@ -161,6 +164,7 @@ class Player:
         # Draw the remaining time
         if self.remaining_time > 0:
             self.font.draw(400, 580, f'Remaining Time: {self.remaining_time:.2f}', (255, 255, 255))
+            self.font.draw(100, 520, f'STAGE: {self.stage:.0f}', (255, 255, 255))
         else:
             self.font.draw(400, 580, 'Time is up!', (255, 255, 255))
             game_framework.change_mode(loading_mode)

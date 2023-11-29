@@ -10,7 +10,6 @@ from participant import Player
 from pigeon import Pigeon
 
 
-
 def handle_events():
     events = get_events()
     for event in events:
@@ -21,6 +20,7 @@ def handle_events():
         else:
             targeting.handle_event(event)
             player.handle_event(event)
+
 
 def init():
     global bg
@@ -46,10 +46,12 @@ def finish():
     game_world.clear()
     pass
 
+
 # Define the pigeon spawn interval in seconds
 PIGEON_SPAWN_INTERVAL = 2.0
 # Initialize the pigeon spawn timer
 pigeon_spawn_timer = 0.0
+
 
 def update():
     global pigeon_spawn_timer
@@ -72,14 +74,16 @@ def update():
     game_world.update()
     game_world.handle_collisions()
 
+
 def draw():
     clear_canvas()
     game_world.render()
     update_canvas()
 
+
 def pause():
     pass
 
+
 def resume():
     pass
-

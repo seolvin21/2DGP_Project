@@ -1,4 +1,4 @@
-from pico2d import*
+from pico2d import *
 import game_framework
 import loading_mode
 
@@ -8,17 +8,21 @@ def init():
     image = load_image('gamestart.png')
     pass
 
+
 def finish():
     pass
 
+
 def update():
     pass
+
 
 def draw():
     clear_canvas()
     image.draw(400, 300)
     update_canvas()
     pass
+
 
 def handle_events():
     events = get_events()
