@@ -16,7 +16,6 @@ def init():
     loading_time = get_time()
     server.stage += 1
 
-
 def finish():
     pass
 
@@ -29,6 +28,7 @@ def draw():
 
 def update():
     global running
+
     if get_time() - loading_time >= 2.0:
         if server.stage >= 5:
             game_framework.change_mode(end_mode)
