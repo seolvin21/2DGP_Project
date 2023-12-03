@@ -1,6 +1,7 @@
 from pico2d import *
 import game_framework
 import game_world
+import loading_mode
 import play_mode
 import server
 
@@ -18,6 +19,7 @@ class Target:
         self.font = load_font('NanumSquareEB.ttf', 30)
         self.bullet_count = 5
         self.score = server.score
+        self.loading_time = get_time()
 
     def handle_event(self, event):
         if event.type == SDL_MOUSEMOTION:
@@ -37,6 +39,9 @@ class Target:
             game_world.add_collision_pair('player:pigeon', self, None)
 
     def update(self):
+        if self.bullet_count <= 0:
+            if get_time() - self.loading_time >= 2.0:
+                game_framework.change_mode(loading_mode)
         pass
 
     def draw(self):
