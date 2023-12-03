@@ -31,6 +31,8 @@ class Pigeon:
             self.dir = -1
         self.action = 0
         self.wid, self.hgt = 80, 100
+        self.collided = False;
+
         min_hgt = 50  # 최소 폭
         max_hgt = 100  # 최대 폭
 
@@ -40,7 +42,7 @@ class Pigeon:
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
         self.x += RUN_SPEED_PPS * self.dir * game_framework.frame_time
-        if self.x > 750 or self.x < 10:
+        if not self.collided and self.x > 750 or self.x < 10:
             game_world.remove_object(self)
 
     def draw(self):
@@ -61,4 +63,5 @@ class Pigeon:
 
     def handle_collision(self, group, other):
         if group == 'player:pigeon':
+            self.collided = True;
             game_world.remove_object(self)
