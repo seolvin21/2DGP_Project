@@ -15,11 +15,12 @@ class Target:
         self.x, self.y = 0, 0
         self.image = load_image('Target.png')
         self.wid, self.hgt = 50, 50
-        self.targeting_size = 20
         self.font = load_font('NanumSquareEB.ttf', 30)
         self.bullet_count = 5
         self.score = server.score
         self.loading_time = get_time()
+
+        self.targeting_size = server.targeting_size
 
     def handle_event(self, event):
         if event.type == SDL_MOUSEMOTION:

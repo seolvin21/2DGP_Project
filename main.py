@@ -1,7 +1,7 @@
 from pico2d import *
 import game_framework
 
-import start_mode as starting_mode
+import minigame_mode as starting_mode
 
 open_canvas()
 hide_cursor()
