@@ -1,5 +1,6 @@
 from pico2d import *
 
+import end_mode
 import game_framework
 import play_mode
 import server
@@ -29,7 +30,10 @@ def draw():
 def update():
     global running
     if get_time() - loading_time >= 2.0:
-        game_framework.change_mode(play_mode)
+        if server.stage >= 5:
+            game_framework.change_mode(end_mode)
+        else:
+            game_framework.change_mode(play_mode)
         running = False
 
 
