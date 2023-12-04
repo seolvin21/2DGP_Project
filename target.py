@@ -16,10 +16,15 @@ class Target:
         self.image = load_image('Target.png')
         self.wid, self.hgt = 50, 50
         self.font = load_font('NanumSquareEB.ttf', 30)
-        self.bullet_count = 5
+        self.bullet_count = 8
         self.score = server.score
         self.loading_time = get_time()
         self.targeting_size = 20
+
+        Target.fire_sound = load_wav('./sound/launcher2.wav')
+        Target.fire_sound.set_volume(32)
+        Target.empty_sound = load_wav('./sound/empty.wav')
+        Target.empty_sound.set_volume(32)
 
         if server.game_result == 'BAD':
             self.targeting_size = 10
@@ -40,10 +45,14 @@ class Target:
 
     def fire(self):
         if self.bullet_count > 0:
+            Target.fire_sound.play()
             self.bullet_count -= 1
             bullet = Boom(self.x, self.y)
             game_world.add_object(bullet, 1)
             game_world.add_collision_pair('player:pigeon', self, None)
+        else:
+            Target.empty_sound.play()
+
 
     def update(self):
         if self.bullet_count <= 0:

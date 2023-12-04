@@ -1,12 +1,15 @@
 from pico2d import *
 import game_framework
+import game_world
 import loading_mode
+from background import StartScreen
 
 
 def init():
-    global image
-    image = load_image('gamestart.png')
-    pass
+    global bg
+
+    bg = StartScreen()
+    game_world.add_object(bg, 0)
 
 
 def finish():
@@ -19,7 +22,7 @@ def update():
 
 def draw():
     clear_canvas()
-    image.draw(400, 300)
+    game_world.render()
     update_canvas()
     pass
 
@@ -31,6 +34,6 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-            game_framework.change_mode(loading_mode)
+        else:
+            bg.handle_event(event)
     pass
