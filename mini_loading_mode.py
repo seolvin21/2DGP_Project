@@ -19,7 +19,7 @@ def init():
     success_sound.set_volume(64)
     failed_image = load_image('minigame.png')
     failed_sound = load_wav('./sound/mini_failed.wav')
-    failed_sound.set_volume(16)
+    failed_sound.set_volume(10)
 
     font = load_font('neodgm_code.ttf', 50)
 

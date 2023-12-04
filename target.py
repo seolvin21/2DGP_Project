@@ -55,6 +55,7 @@ class Target:
 
 
     def update(self):
+        print(server.score)
         if self.bullet_count <= 0:
             if get_time() - self.loading_time >= 2.0:
                 game_framework.change_mode(loading_mode)
