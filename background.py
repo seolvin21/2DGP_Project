@@ -33,8 +33,11 @@ class StartScreen:
         self.bgm.set_volume(64)
         self.bgm.repeat_play()
 
+        self.play_bgm = load_music('./sound/play_mode_bgm.mp3')
+        self.play_bgm.set_volume(64)
+
         StartScreen.select_sound = load_wav('./sound/select.wav')
-        StartScreen.select_sound.set_volume(32)
+        StartScreen.select_sound.set_volume(64)
 
         self.loading_time = get_time()
 
@@ -47,4 +50,5 @@ class StartScreen:
     def handle_event(self, event):
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
             StartScreen.select_sound.play()
+            self.play_bgm.repeat_play()
             game_framework.change_mode(loading_mode)

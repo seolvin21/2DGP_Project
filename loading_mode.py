@@ -2,6 +2,7 @@ from pico2d import *
 
 import end_mode
 import game_framework
+import minigame_mode
 import play_mode
 import server
 
@@ -33,7 +34,7 @@ def update():
         if server.stage >= 5:
             game_framework.change_mode(end_mode)
         else:
-            game_framework.change_mode(play_mode)
+            game_framework.change_mode(minigame_mode)
         running = False
 
 

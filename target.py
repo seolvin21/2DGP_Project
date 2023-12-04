@@ -26,10 +26,10 @@ class Target:
         Target.empty_sound = load_wav('./sound/empty.wav')
         Target.empty_sound.set_volume(32)
 
-        if server.game_result == 'BAD':
+        if server.game_result == 'FAILED':
             self.targeting_size = 10
             self.wid, self.hgt = 25, 25
-        elif server.game_result == 'GOOD':
+        elif server.game_result == 'SUCCESS':
             self.targeting_size = 20
             self.wid, self.hgt = 50, 50
 

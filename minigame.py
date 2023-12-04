@@ -4,6 +4,7 @@ from pico2d import *
 
 import game_framework
 import loading_mode
+import mini_loading_mode
 import server
 
 arrow_names = ['arrow_']
@@ -22,9 +23,8 @@ class Minigame:
 
     def change_mode(self):
         server.game_result = self.result
-        if get_time() - self.input_time >= 5.0:
-            print(server.game_result)
-            game_framework.change_mode(loading_mode)
+        print(server.game_result)
+        game_framework.change_mode(mini_loading_mode)
 
     def handle_event(self, event):
         if len(self.input_list) < len(self.arrow_list):
@@ -39,14 +39,14 @@ class Minigame:
 
     def update(self):
         if get_time() - self.input_time >= 3.0 and self.input_list != self.arrow_list:
-            self.result = 'BAD'
+            self.result = 'FAILED'
             self.change_mode()
         elif self.input_list != self.arrow_list and len(self.input_list) >= len(self.arrow_list):
-            self.result = 'BAD'
+            self.result = 'FAILED'
             self.change_mode()
         else:
             if self.input_list == self.arrow_list:
-                self.result = 'GOOD'
+                self.result = 'SUCCESS'
                 self.change_mode()
 
     def draw(self):
