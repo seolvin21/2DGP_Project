@@ -19,8 +19,14 @@ class Target:
         self.bullet_count = 5
         self.score = server.score
         self.loading_time = get_time()
+        self.targeting_size = 20
 
-        self.targeting_size = server.targeting_size
+        if server.game_result == 'BAD':
+            self.targeting_size = 10
+            self.wid, self.hgt = 25, 25
+        elif server.game_result == 'GOOD':
+            self.targeting_size = 20
+            self.wid, self.hgt = 50, 50
 
     def handle_event(self, event):
         if event.type == SDL_MOUSEMOTION:
@@ -29,7 +35,7 @@ class Target:
             if self.x >= play_mode.player.x - 200 and self.x <= play_mode.player.x + 200:
                 self.fire()
                 print(self.x, self.y)
-        elif event.type == SDL_MOUSEBUTTONUP and event.button == SDL_BUTTON_LEFT:
+        if event.type == SDL_MOUSEBUTTONUP:
             game_world.remove_collision_object(self)
 
     def fire(self):
@@ -92,4 +98,5 @@ class Boom:
     def draw(self):
         frame_index = int(self.frame)
         if 0 <= frame_index < len(Boom.images['skill_bullet_1_']):
-            Boom.images['skill_bullet_1_'][int(self.frame)].draw(self.x, self.y, 200, 200)
+            Boom.images['skill_bullet_1_'][int(self.frame)].draw(self.x, self.y,
+                                                                 200-server.targeting_size, 200-server.targeting_size)

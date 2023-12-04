@@ -4,10 +4,11 @@ import math
 from pico2d import *
 import game_world
 import game_framework
+import server
 
 # Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)
-RUN_SPEED_KMPH = random.randint(10, 60)
+RUN_SPEED_KMPH = random.randint(50, 100)
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -22,19 +23,19 @@ class Pigeon:
     image = None
 
     def __init__(self):
-        self.x, self.y = random.choice([10, 730]), random.randint(100, 550)
+        self.x, self.y = random.choice([0, 800]), random.randint(150, 500)
         Pigeon.image = load_image('pigeon_spritesheet.png')
         self.frame = 0
-        if self.x == 10:
+        if self.x <= 10:
             self.dir = 1
-        elif self.x == 730:
+        elif self.x >= 730:
             self.dir = -1
         self.action = 0
         self.wid, self.hgt = 80, 100
-        self.collided = False;
+        self.collided = False
 
-        min_hgt = 50  # 최소 폭
-        max_hgt = 100  # 최대 폭
+        min_hgt = 40  # 최소 폭
+        max_hgt = 70  # 최대 폭
 
         self.hgt_size = random.randint(min_hgt, max_hgt)
         self.wid_size = self.hgt_size - 20
@@ -42,9 +43,9 @@ class Pigeon:
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
         self.x += RUN_SPEED_PPS * self.dir * game_framework.frame_time
-        if not self.collided and self.x > 750 or self.x < 10:
-            game_world.remove_object(self)
-
+        if not self.collided:
+            if self.dir == 1 and self.x > 750 or self.dir == -1 and self.x < 10:
+                self.__init__()
     def draw(self):
         if self.dir > 0:
             self.image.clip_composite_draw(int(self.frame) * self.wid, self.action * self.hgt,
@@ -63,5 +64,6 @@ class Pigeon:
 
     def handle_collision(self, group, other):
         if group == 'player:pigeon':
-            self.collided = True;
-            game_world.remove_object(self)
+            print('collision:', self.x, self.y)
+            self.collided = True
+            self.__init__()

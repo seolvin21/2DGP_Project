@@ -26,7 +26,7 @@ def init():
     global bg
     global player
     global targeting
-    global pigeons
+    global pigeon
 
     running = True
 
@@ -36,7 +36,9 @@ def init():
     player = Player()
     game_world.add_object(player, 1)
 
-    pigeons = []
+    pigeon = Pigeon()
+    game_world.add_object(pigeon, 2)
+    game_world.add_collision_pair('player:pigeon', None, pigeon)
 
     targeting = Target()
     game_world.add_object(targeting, 2)
@@ -47,30 +49,7 @@ def finish():
     pass
 
 
-# Define the pigeon spawn interval in seconds
-PIGEON_SPAWN_INTERVAL = 2.0
-# Initialize the pigeon spawn timer
-pigeon_spawn_timer = 0.0
-
-
 def update():
-    global pigeon_spawn_timer
-    global pigeons
-
-    # Update the timer
-    pigeon_spawn_timer += game_framework.frame_time
-
-    # Check if it's time to spawn a new pigeon
-    if pigeon_spawn_timer >= PIGEON_SPAWN_INTERVAL:
-        # Spawn a new pigeon
-        new_pigeon = Pigeon()
-        pigeons.append(new_pigeon)
-        game_world.add_object(new_pigeon, 1)
-        game_world.add_collision_pair('player:pigeon', None, new_pigeon)
-
-        # Reset the timer
-        pigeon_spawn_timer = 0.0
-
     game_world.update()
     game_world.handle_collisions()
 
