@@ -15,7 +15,7 @@ class Target:
         self.x, self.y = 0, 0
         self.image = load_image('Target.png')
         self.wid, self.hgt = 50, 50
-        self.font = load_font('NanumSquareEB.ttf', 30)
+        self.font = load_font('neodgm_code.ttf', 30)
         self.bullet_count = 8
         self.score = server.score
         self.loading_time = get_time()
@@ -62,8 +62,10 @@ class Target:
 
     def draw(self):
         self.image.draw(self.x, self.y, self.wid, self.hgt)
-        self.font.draw(100, 580, f'SCORE: {self.score:.0f}', (255, 255, 255))
-        self.font.draw(100, 550, f'BULLET: {self.bullet_count:.0f}', (255, 255, 255))
+        self.font.draw(22, 582, f'SCORE: {self.score:.0f}', (255, 0, 0))
+        self.font.draw(20, 580, f'SCORE: {self.score:.0f}', (255, 255, 255))
+        self.font.draw(22, 552, f'BULLET: {self.bullet_count:.0f}', (255, 0, 0))
+        self.font.draw(20, 550, f'BULLET: {self.bullet_count:.0f}', (255, 255, 255))
         draw_rectangle(*self.get_bb())
 
     def get_bb(self):

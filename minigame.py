@@ -17,9 +17,13 @@ class Minigame:
         self.input_list = []
         self.arrow_list = [random.randint(1,4) for _ in range(random.randint(9,10))]
         self.input_time = get_time()
-        self.font = load_font('NanumSquareEB.ttf', 30)
+        self.font = load_font('neodgm_code.ttf', 30)
         self.result = None
         self.space = 70
+
+        self.time_limit = 3.0
+        self.elapsed_time = 0.0
+        self.remaining_time = self.time_limit
 
     def change_mode(self):
         server.game_result = self.result
@@ -38,6 +42,9 @@ class Minigame:
                 self.input_list.append(1)
 
     def update(self):
+        self.elapsed_time += game_framework.frame_time
+        self.remaining_time = max(self.time_limit - self.elapsed_time, 0)
+
         if get_time() - self.input_time >= 3.0 and self.input_list != self.arrow_list:
             self.result = 'FAILED'
             self.change_mode()
@@ -50,17 +57,18 @@ class Minigame:
                 self.change_mode()
 
     def draw(self):
-        self.font.draw(400, 580, f'Remaining Time: {get_time() - self.input_time:.0f}', (255, 255, 255))
+        self.font.draw(402, 578, f'Remaining Time: {self.remaining_time:.0f}', (0, 255, 255))
+        self.font.draw(400, 580, f'Remaining Time: {self.remaining_time:.0f}', (255, 255, 255))
 
         for i in range(len(self.input_list)):
             input_arrow_image = load_image('./arrows/p_arrow_' + str(self.input_list[i]) + '.png')
-            input_arrow_image.draw(100 + (self.space * i), 100, 80, 80)
-            self.font.draw(400 + (self.space * i), 520, f'{self.input_list[i]}', (255, 255, 255))
+            input_arrow_image.draw(100 + (self.space * i), 100, 70, 70)
+            # self.font.draw(400 + (self.space * i), 520, f'{self.input_list[i]}', (255, 255, 255))
 
         for i in range(len(self.arrow_list)):
             arrow_image = load_image('./arrows/arrow_' + str(self.arrow_list[i]) + '.png')
-            arrow_image.draw(100 + (self.space * i), 200, 80, 80)
-            self.font.draw(400 + (self.space * i), 550, f'{self.arrow_list[i]}', (255, 255, 255))
+            arrow_image.draw(100 + (self.space * i), 200, 70, 70)
+            # self.font.draw(400 + (self.space * i), 550, f'{self.arrow_list[i]}', (255, 255, 255))
 
         if self.result == 'BAD':
             self.font.draw(400, 300, f'BAD', (255, 255, 255))

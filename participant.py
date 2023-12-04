@@ -144,7 +144,7 @@ class Player:
         self.remaining_time = self.time_limit
         self.image = load_image('player_spritesheet.png')
         self.image_idle = load_image('player_spritesheet_idle.png')
-        self.font = load_font('NanumSquareEB.ttf', 30)
+        self.font = load_font('neodgm_code.ttf', 30)
         self.state_machine = StateMachine(self)
         self.state_machine.start()
 
@@ -163,8 +163,10 @@ class Player:
         self.state_machine.draw()
         # Draw the remaining time
         if self.remaining_time > 0:
-            self.font.draw(400, 580, f'Remaining Time: {self.remaining_time:.2f}', (255, 255, 255))
-            self.font.draw(100, 520, f'STAGE: {self.stage:.0f}', (255, 255, 255))
+            self.font.draw(477, 20, f'REMAINING TIME: {self.remaining_time:.2f}', (255, 0, 0))
+            self.font.draw(475, 18, f'REMAINING TIME: {self.remaining_time:.2f}', (255, 255, 255))
+            self.font.draw(22, 522, f'STAGE: {self.stage:.0f}', (255, 0, 0))
+            self.font.draw(20, 520, f'STAGE: {self.stage:.0f}', (255, 255, 255))
         else:
             self.font.draw(400, 580, 'Time is up!', (255, 255, 255))
             game_framework.change_mode(loading_mode)

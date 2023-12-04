@@ -4,8 +4,8 @@ import loading_mode
 import start_mode
 
 def init():
-    # global image
-    # image = load_image('game_end.png')
+    global image
+    image = load_image('./background/BG_1_1.png')
     pass
 
 
@@ -19,7 +19,7 @@ def update():
 
 def draw():
     clear_canvas()
-    # image.draw(400, 300)
+    image.draw(400, 300)
     update_canvas()
     pass
 
