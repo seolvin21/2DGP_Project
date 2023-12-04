@@ -18,9 +18,10 @@ class Minigame:
         self.arrow_list = [random.randint(1,4) for _ in range(random.randint(9,10))]
         self.input_time = get_time()
         self.font = load_font('neodgm_code.ttf', 30)
+        self.breathe_font = load_font('neodgm_code.ttf', 50)
         self.result = None
         self.space = 70
-
+        self.bg = load_image('minigame.png')
         self.time_limit = 3.0
         self.elapsed_time = 0.0
         self.remaining_time = self.time_limit
@@ -57,12 +58,15 @@ class Minigame:
                 self.change_mode()
 
     def draw(self):
-        self.font.draw(402, 578, f'Remaining Time: {self.remaining_time:.0f}', (0, 255, 255))
-        self.font.draw(400, 580, f'Remaining Time: {self.remaining_time:.0f}', (255, 255, 255))
+        self.bg.draw(400, 300)
+        self.breathe_font.draw(270, 300, f'심호흡하자!', (255, 255, 255))
+
+        self.font.draw(552, 578, f'REMAINIG TIME: {self.remaining_time:.0f}', (0, 255, 255))
+        self.font.draw(550, 580, f'REMAINIG TIME: {self.remaining_time:.0f}', (255, 255, 255))
 
         for i in range(len(self.input_list)):
             input_arrow_image = load_image('./arrows/p_arrow_' + str(self.input_list[i]) + '.png')
-            input_arrow_image.draw(100 + (self.space * i), 100, 70, 70)
+            input_arrow_image.draw(110 + (self.space * i), 100, 70, 70)
             # self.font.draw(400 + (self.space * i), 520, f'{self.input_list[i]}', (255, 255, 255))
 
         for i in range(len(self.arrow_list)):

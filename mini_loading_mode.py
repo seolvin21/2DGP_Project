@@ -10,15 +10,18 @@ def init():
     global success_sound, failed_sound
     global running
     global loading_time
+    global font
 
     running = True
 
-    success_image = load_image('cyberpunk.png')
+    success_image = load_image('minigame.png')
     success_sound = load_wav('./sound/mini_success.wav')
     success_sound.set_volume(64)
-    failed_image = load_image('cyberpunk.png')
+    failed_image = load_image('minigame.png')
     failed_sound = load_wav('./sound/mini_failed.wav')
     failed_sound.set_volume(16)
+
+    font = load_font('neodgm_code.ttf', 50)
 
     loading_time = get_time()
 
@@ -30,10 +33,12 @@ def draw():
     clear_canvas()
     if server.game_result == 'SUCCESS':
         success_sound.play()
-        success_image.draw(400, 300, 1010, 385)
+        success_image.draw(400, 300)
+        font.draw(250, 300, f'심호흡 성공!', (255, 255, 255))
     elif server.game_result == 'FAILED':
         failed_sound.play()
-        failed_image.draw(400, 300, 1010, 385)
+        failed_image.draw(400, 300)
+        font.draw(250, 300, f'심호흡 실패!', (255, 255, 255))
     update_canvas()
 
 

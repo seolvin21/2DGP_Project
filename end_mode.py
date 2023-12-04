@@ -1,11 +1,13 @@
 from pico2d import *
 import game_framework
 import loading_mode
+import server
 import start_mode
 
 def init():
     global image
     image = load_image('./background/BG_1_1.png')
+    server.ranking.append(server.score)
     pass
 
 

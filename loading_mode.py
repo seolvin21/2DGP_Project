@@ -31,7 +31,7 @@ def update():
     global running
 
     if get_time() - loading_time >= 2.0:
-        if server.stage > 9:
+        if server.stage >= 5:
             game_framework.change_mode(end_mode)
         else:
             game_framework.change_mode(minigame_mode)
