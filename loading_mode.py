@@ -23,7 +23,7 @@ def finish():
 
 def draw():
     clear_canvas()
-    image.draw(400, 300, 1010, 385)
+    image.draw(400, 300)
     update_canvas()
 
 
