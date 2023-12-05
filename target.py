@@ -38,7 +38,7 @@ class Target:
         if event.type == SDL_MOUSEMOTION:
             self.x, self.y = event.x, 600 - 1 - event.y
         elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
-            if self.x >= play_mode.player.x - 200 and self.x <= play_mode.player.x + 200:
+            if self.x >= play_mode.player.x - 150 and self.x <= play_mode.player.x + 150:   # shooting range
                 self.fire()
                 # print(self.x, self.y)
         if event.type == SDL_MOUSEBUTTONUP:
