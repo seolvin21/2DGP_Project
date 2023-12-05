@@ -22,7 +22,7 @@ class Target:
         self.loading_time = get_time()
         self.targeting_size = 20
 
-        Target.fire_sound = load_wav('./sound/launcher2.wav')
+        Target.fire_sound = load_wav('./sound/fire.wav')
         Target.fire_sound.set_volume(32)
         Target.empty_sound = load_wav('./sound/empty.wav')
         Target.empty_sound.set_volume(32)
