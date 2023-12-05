@@ -22,7 +22,7 @@ class Minigame:
         self.result = None
         self.space = 70
         self.bg = load_image('minigame.png')
-        self.time_limit = 3.0
+        self.time_limit = 5.0
         self.elapsed_time = 0.0
         self.remaining_time = self.time_limit
 
@@ -46,7 +46,7 @@ class Minigame:
         self.elapsed_time += game_framework.frame_time
         self.remaining_time = max(self.time_limit - self.elapsed_time, 0)
 
-        if get_time() - self.input_time >= 3.0 and self.input_list != self.arrow_list:
+        if get_time() - self.input_time >= 5.0 and self.input_list != self.arrow_list:
             self.result = 'FAILED'
             self.change_mode()
         elif self.input_list != self.arrow_list and len(self.input_list) >= len(self.arrow_list):

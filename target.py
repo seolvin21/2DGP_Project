@@ -14,10 +14,11 @@ class Target:
     def __init__(self):
         self.x, self.y = 0, 0
         self.image = load_image('Target.png')
+        self.no_bullets_image = load_image('no_bullets.png')
         self.wid, self.hgt = 50, 50
         self.font = load_font('neodgm_code.ttf', 30)
         self.bullet_count = 8
-        self.score = server.score
+        self.score = 0
         self.loading_time = get_time()
         self.targeting_size = 20
 
@@ -57,14 +58,17 @@ class Target:
     def update(self):
         print(server.score)
         if self.bullet_count <= 0:
+            server.score += self.score
             if get_time() - self.loading_time >= 2.0:
                 game_framework.change_mode(loading_mode)
         pass
 
     def draw(self):
+        if self.bullet_count <= 0:
+            self.no_bullets_image.draw(400, 300)
         self.image.draw(self.x, self.y, self.wid, self.hgt)
-        self.font.draw(22, 582, f'SCORE: {self.score:.0f}', (255, 0, 0))
-        self.font.draw(20, 580, f'SCORE: {self.score:.0f}', (255, 255, 255))
+        self.font.draw(22, 582, f'S{server.stage:.0f} SCORE: {self.score:.0f}', (255, 0, 0))
+        self.font.draw(20, 580, f'S{server.stage:.0f} SCORE: {self.score:.0f}', (255, 255, 255))
         self.font.draw(22, 552, f'BULLET: {self.bullet_count:.0f}', (255, 0, 0))
         self.font.draw(20, 550, f'BULLET: {self.bullet_count:.0f}', (255, 255, 255))
         draw_rectangle(*self.get_bb())
@@ -77,7 +81,6 @@ class Target:
         if group == 'player:pigeon':
             print('collision')
             self.score += 1
-            server.score = self.score
 
 
 # bullet animation speed

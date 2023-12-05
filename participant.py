@@ -2,6 +2,7 @@ from pico2d import *
 import game_world
 import game_framework
 import loading_mode
+import play_mode
 import server
 
 
@@ -156,6 +157,11 @@ class Player:
         self.elapsed_time += game_framework.frame_time
         self.remaining_time = max(self.time_limit - self.elapsed_time, 0)
 
+        if self.remaining_time <= 0:
+            server.score += play_mode.targeting.score
+            game_framework.change_mode(loading_mode)
+
+
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
 
@@ -169,4 +175,3 @@ class Player:
             self.font.draw(20, 520, f'STAGE: {self.stage:.0f}', (255, 255, 255))
         else:
             self.font.draw(400, 580, 'Time is up!', (255, 255, 255))
-            game_framework.change_mode(loading_mode)
