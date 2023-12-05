@@ -53,7 +53,7 @@ class Pigeon:
         else:
             self.image.clip_draw(int(self.frame) * self.wid, self.action * self.hgt,
                                  self.wid, self.hgt, self.x, self.y, self.wid_size, self.hgt_size)
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def handle_event(self, event):
         pass

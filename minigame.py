@@ -11,7 +11,6 @@ arrow_names = ['arrow_']
 class Minigame:
     images = []
 
-
     def __init__(self):
         # arrows = ['UP', 'DOWN', 'LEFT', 'RIGHT']
         self.input_list = []

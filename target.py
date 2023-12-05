@@ -40,7 +40,7 @@ class Target:
         elif event.type == SDL_MOUSEBUTTONDOWN and event.button == SDL_BUTTON_LEFT:
             if self.x >= play_mode.player.x - 200 and self.x <= play_mode.player.x + 200:
                 self.fire()
-                print(self.x, self.y)
+                # print(self.x, self.y)
         if event.type == SDL_MOUSEBUTTONUP:
             game_world.remove_collision_object(self)
 
@@ -71,7 +71,7 @@ class Target:
         self.font.draw(20, 580, f'S{server.stage:.0f} SCORE: {self.score:.0f}', (255, 255, 255))
         self.font.draw(22, 552, f'BULLET: {self.bullet_count:.0f}', (255, 0, 0))
         self.font.draw(20, 550, f'BULLET: {self.bullet_count:.0f}', (255, 255, 255))
-        draw_rectangle(*self.get_bb())
+        # draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return (self.x - self.targeting_size, self.y - self.targeting_size,
@@ -79,7 +79,7 @@ class Target:
 
     def handle_collision(self, group, other):
         if group == 'player:pigeon':
-            print('collision')
+            # print('collision')
             self.score += 1
 
 
