@@ -56,7 +56,7 @@ class Target:
 
 
     def update(self):
-        print(server.score)
+        # print(server.score)
         if self.bullet_count <= 0:
             server.score += self.score
             if get_time() - self.loading_time >= 2.0:

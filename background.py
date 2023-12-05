@@ -28,7 +28,8 @@ class Background:
 
         if self.bg == 'factory':
             self.cloud_image.draw(400, 300, 800, 600)
-        elif self.bg == 'signs':
+
+        elif self.bg == 'neonsigns':
             self.cloud_image2.draw(400, 300, 800, 600)
             self.low_building.draw(100, 200)
             self.low_building2.draw(700, 200)
